@@ -4,6 +4,8 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 
 function about() {
+    const [name, setName] = useState('');
+
     useEffect(() => {
         const confirmationMessage = 'Changes you made may not be saved.';
         const beforeUnloadHandler = (e) => {
@@ -18,8 +20,10 @@ function about() {
                 throw `Route change to "${url}" was aborted (this error can be safely ignored). See https://github.com/zeit/next.js/issues/2476.`;
             }
         };
-        window.addEventListener('beforeunload', beforeUnloadHandler);
-        Router.events.on('routeChangeStart', beforeRouteHandler);
+        if (name) {
+            window.addEventListener('beforeunload', beforeUnloadHandler);
+            Router.events.on('routeChangeStart', beforeRouteHandler);
+        }
         return () => {
             window.removeEventListener('beforeunload', beforeUnloadHandler);
             Router.events.off('routeChangeStart', beforeRouteHandler);
@@ -34,6 +38,8 @@ function about() {
             <Link href="/test"><a>Test</a></Link>
             <h1> About</h1>
             <p> A javascript programmer</p>
+            <input onChange={e => setName(e.target.value)} />
+
             <img src="/static/js-logo.jpg" alt="js-logo" />
         </div>
     );
