@@ -40,7 +40,7 @@ function about() {
             <p> A javascript programmer</p>
             <input onChange={e => setName(e.target.value)} />
 
-            <img src="/static/js-logo.jpg" alt="js-logo" />
+            <img src="https://raw.githubusercontent.com/sanjevscet/next-js-001/main/static/js-logo.jpg" alt="js-logo" />
         </div>
     );
 }
